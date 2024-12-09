@@ -35,9 +35,10 @@ class TaskPersistenceAdapterTest {
         assertEquals("Test4-1 Description", task.orElseThrow().description().getValue());
     }
 
-    //TODO: findAll
+    @Test
     public void canFindAll() {
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test4.json");
         List<Task> tasks = loadTaskPort.findAll();
+        assertEquals(2, tasks.size());
     }
 }
