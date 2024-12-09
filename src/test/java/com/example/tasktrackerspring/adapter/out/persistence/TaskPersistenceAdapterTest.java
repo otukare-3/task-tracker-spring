@@ -5,8 +5,6 @@ import com.example.tasktrackerspring.application.domain.service.TaskID;
 import com.example.tasktrackerspring.application.port.out.LoadTaskPort;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -28,7 +28,7 @@ public class TaskPersistenceAdapter implements LoadTaskPort {
 
         try {
             //TODO: もっとパス簡単に
-            taskJsonEntities = mapper.readValue(new File(Paths.get(destination).toAbsolutePath().toString()), new TypeReference<List<TaskJsonEntity>>() {
+            taskJsonEntities = mapper.readValue(new File(Paths.get(destination).toAbsolutePath().toString()), new TypeReference<>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -36,9 +36,7 @@ public class TaskPersistenceAdapter implements LoadTaskPort {
 
         TaskMapper taskMapper = new TaskMapper();
 
-        Optional<TaskJsonEntity> optionalTask = taskJsonEntities.stream().filter((taskJsonEntity) -> {
-            return UUID.fromString(taskJsonEntity.getTaskId()).equals(taskID.value());
-        }).findFirst();
+        Optional<TaskJsonEntity> optionalTask = taskJsonEntities.stream().filter((taskJsonEntity) -> UUID.fromString(taskJsonEntity.getTaskId()).equals(taskID.value())).findFirst();
 
         return taskMapper.mapToDomainEntity(optionalTask.orElseThrow());
     }
