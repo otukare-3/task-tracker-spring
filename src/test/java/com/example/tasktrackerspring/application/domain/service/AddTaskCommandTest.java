@@ -20,5 +20,9 @@ class AddTaskCommandTest {
         assertThrows(IllegalArgumentException.class, () -> new AddTaskCommand(taskId, description, null));
     }
 
-    //TODO: descriptionは必須
+    @Test
+    public void descriptionIsRequired() {
+        TaskID taskId = new TaskID(1);
+        assertThrows(IllegalArgumentException.class, () -> new AddTaskCommand(taskId, null, Status.TODO));
+    }
 }

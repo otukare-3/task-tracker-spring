@@ -6,6 +6,7 @@ public class Description {
     private final String value;
 
     public Description(String description) {
+        //TODO: からチェック
         this.value = description;
     }
 

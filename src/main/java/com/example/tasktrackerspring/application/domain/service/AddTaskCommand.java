@@ -8,5 +8,8 @@ public record AddTaskCommand(TaskID taskID, Description description, Status stat
         if (status == null) {
             throw new IllegalArgumentException("status cannot be null");
         }
+        if (description == null) {
+            throw new IllegalArgumentException("description cannot be null");
+        }
     }
 }
