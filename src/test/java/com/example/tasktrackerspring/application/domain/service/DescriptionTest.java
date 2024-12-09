@@ -2,7 +2,8 @@ package com.example.tasktrackerspring.application.domain.service;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DescriptionTest {
     @Test
@@ -17,5 +18,11 @@ class DescriptionTest {
         String descriptionStr = "description2";
         Description description = new Description(descriptionStr);
         assertEquals(descriptionStr, description.getValue());
+    }
+
+    @Test
+    public void isRequired() {
+        assertThrows(IllegalArgumentException.class, () -> new Description(""));
+        assertThrows(IllegalArgumentException.class, () -> new Description(null));
     }
 }

@@ -6,7 +6,9 @@ public class Description {
     private final String value;
 
     public Description(String description) {
-        //TODO: からチェック
+        if (description == null || description.isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be null or empty");
+        }
         this.value = description;
     }
 
