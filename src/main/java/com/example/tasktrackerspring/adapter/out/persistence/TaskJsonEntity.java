@@ -1,5 +1,6 @@
 package com.example.tasktrackerspring.adapter.out.persistence;
 
+@SuppressWarnings("unused")
 public class TaskJsonEntity {
     private String taskId;
     private String description;
