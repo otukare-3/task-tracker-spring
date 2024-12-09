@@ -2,7 +2,7 @@ package com.example.tasktrackerspring.application.domain.service;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddTaskCommandTest {
 
@@ -13,5 +13,12 @@ class AddTaskCommandTest {
         assertThrows(IllegalArgumentException.class, () -> new AddTaskCommand(taskId, description, Status.DONE));
     }
 
-    //TODO: ステータスは必須
+    @Test
+    public void statusIsRequired() {
+        TaskID taskId = new TaskID(1);
+        Description description = new Description("description");
+        assertThrows(IllegalArgumentException.class, () -> new AddTaskCommand(taskId, description, null));
+    }
+
+    //TODO: descriptionは必須
 }
