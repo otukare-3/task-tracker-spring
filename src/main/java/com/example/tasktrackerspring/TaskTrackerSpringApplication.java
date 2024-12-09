@@ -13,7 +13,7 @@ public class TaskTrackerSpringApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args){
         System.out.println("Hello World");
     }
 }
