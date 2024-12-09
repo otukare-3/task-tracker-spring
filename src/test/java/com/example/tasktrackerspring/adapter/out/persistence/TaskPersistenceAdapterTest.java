@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaskPersistenceAdapterTest {
 
@@ -22,7 +22,7 @@ class TaskPersistenceAdapterTest {
     @Test
     public void findable() {
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test1.json");
-        TaskID target = new TaskID(UUID.fromString("9eb2f0ad-4076-46b2-a14b-2c08ee63f85a"));
+        TaskID target = new TaskID(1);
         Optional<Task> task = loadTaskPort.find(target);
         assertEquals("Test1 Description", task.orElseThrow().description().getValue());
     }
@@ -30,7 +30,7 @@ class TaskPersistenceAdapterTest {
     @Test
     public void canFindMultipleData() {
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test4.json");
-        TaskID target = new TaskID(UUID.fromString("69946fd9-63d8-2c2e-94f2-9106be1812b6"));
+        TaskID target = new TaskID(1);
         Optional<Task> task = loadTaskPort.find(target);
         assertEquals("Test4-1 Description", task.orElseThrow().description().getValue());
     }

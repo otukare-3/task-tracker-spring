@@ -2,17 +2,16 @@ package com.example.tasktrackerspring.application.domain.service;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TaskIDTest {
     @Test
     public void sameUuidIsEquivalent() {
-        UUID uuid = UUID.randomUUID();
-        TaskID taskID1 = new TaskID(uuid);
-        TaskID taskID2 = new TaskID(uuid);
-        assertEquals(taskID1, taskID2);
+        Integer id = 1;
+        TaskID taskId1 = new TaskID(id);
+        TaskID taskId2 = new TaskID(id);
+        assertEquals(taskId1, taskId2);
     }
 
     @Test
@@ -22,8 +21,8 @@ class TaskIDTest {
 
     @Test
     public void canSaveValue() {
-        UUID uuid = UUID.randomUUID();
-        TaskID taskID1 = new TaskID(uuid);
-        assertEquals(uuid, taskID1.value());
+        Integer id = 1;
+        TaskID taskId1 = new TaskID(id);
+        assertEquals(id, taskId1.value());
     }
 }

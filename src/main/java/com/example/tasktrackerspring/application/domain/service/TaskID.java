@@ -1,10 +1,8 @@
 package com.example.tasktrackerspring.application.domain.service;
 
 import java.util.Objects;
-import java.util.UUID;
 
-//TODO: UUID -> Integerに変更する
-public record TaskID(UUID value) {
+public record TaskID(Integer value) {
     public TaskID {
         if (value == null) throw new IllegalArgumentException("can not be null");
     }

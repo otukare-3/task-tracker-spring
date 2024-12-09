@@ -6,12 +6,11 @@ import com.example.tasktrackerspring.application.domain.service.Status;
 import com.example.tasktrackerspring.application.domain.service.TaskID;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class TaskMapper {
     Task mapToDomainEntity(TaskJsonEntity taskJsonEntity) {
         return new Task(
-                new TaskID(UUID.fromString(taskJsonEntity.getTaskId())),
+                new TaskID(Integer.parseInt(taskJsonEntity.getTaskId())),
                 new Description(taskJsonEntity.getDescription()),
                 Status.valueOf(taskJsonEntity.getStatus()),
                 LocalDateTime.parse(taskJsonEntity.getCreatedAt()),
