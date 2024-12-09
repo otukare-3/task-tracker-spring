@@ -8,10 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class TaskPersistenceAdapter implements LoadTaskPort {
     private final String destination;
@@ -22,22 +20,24 @@ public class TaskPersistenceAdapter implements LoadTaskPort {
     }
 
     @Override
-    public Task find(TaskID taskID) {
+    public Optional<Task> find(TaskID taskID) {
+        List<Task> tasks = findAll();
+        return tasks.stream().filter(task -> task.id().equals(taskID)).findFirst();
+    }
+
+    @Override
+    public List<Task> findAll() {
         ObjectMapper mapper = new ObjectMapper();
         List<TaskJsonEntity> taskJsonEntities;
 
         try {
-            //TODO: もっとパス簡単に
-            taskJsonEntities = mapper.readValue(new File(Paths.get(destination).toAbsolutePath().toString()), new TypeReference<>() {
+            taskJsonEntities = mapper.readValue(new File(destination), new TypeReference<>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         TaskMapper taskMapper = new TaskMapper();
-
-        Optional<TaskJsonEntity> optionalTask = taskJsonEntities.stream().filter((taskJsonEntity) -> UUID.fromString(taskJsonEntity.getTaskId()).equals(taskID.value())).findFirst();
-
-        return taskMapper.mapToDomainEntity(optionalTask.orElseThrow());
+        return taskJsonEntities.stream().map(taskMapper::mapToDomainEntity).toList();
     }
 }

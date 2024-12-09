@@ -6,6 +6,7 @@ import com.example.tasktrackerspring.application.port.in.AddTaskUseCase;
 import com.example.tasktrackerspring.application.port.out.LoadTaskPort;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,8 +22,8 @@ class AddTaskServiceTest {
         sut.add(addTaskCommand);
 
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test2.json");
-        Task loadedTask = loadTaskPort.find(taskID);
-        assertEquals(description, loadedTask.description());
+        Optional<Task> loadedTask = loadTaskPort.find(taskID);
+        assertEquals(description, loadedTask.orElseThrow().description());
     }
 
     @Test
@@ -35,7 +36,7 @@ class AddTaskServiceTest {
         sut.add(addTaskCommand);
 
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test3.json");
-        Task loadedTask = loadTaskPort.find(taskID);
-        assertEquals(description, loadedTask.description());
+        Optional<Task> loadedTask = loadTaskPort.find(taskID);
+        assertEquals(description, loadedTask.orElseThrow().description());
     }
 }

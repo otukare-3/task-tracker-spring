@@ -1,8 +1,16 @@
 package com.example.tasktrackerspring.application.domain.model;
 
 import com.example.tasktrackerspring.application.domain.service.Description;
+import com.example.tasktrackerspring.application.domain.service.Status;
+import com.example.tasktrackerspring.application.domain.service.TaskID;
 
-public record Task(java.util.UUID uuid, Description description,
-                   com.example.tasktrackerspring.application.domain.service.Status status,
-                   java.time.LocalDateTime parse, java.time.LocalDateTime parsed) {
+import java.time.LocalDateTime;
+
+public record Task(
+        TaskID id,
+        Description description,
+        Status status,
+        LocalDateTime parse,
+        LocalDateTime parsed
+) {
 }
