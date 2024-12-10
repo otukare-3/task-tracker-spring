@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public record TaskID(Integer value) {
     public TaskID {
-        if (value == null) throw new IllegalArgumentException("can not be null");
+        if (value == null || value == 0) throw new IllegalArgumentException("can not be null");
     }
 
     @Override
