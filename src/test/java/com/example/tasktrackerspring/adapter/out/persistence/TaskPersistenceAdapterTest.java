@@ -1,15 +1,18 @@
 package com.example.tasktrackerspring.adapter.out.persistence;
 
 import com.example.tasktrackerspring.application.domain.model.Task;
+import com.example.tasktrackerspring.application.domain.service.Description;
+import com.example.tasktrackerspring.application.domain.service.Status;
 import com.example.tasktrackerspring.application.domain.service.TaskID;
+import com.example.tasktrackerspring.application.port.out.InsertTaskPort;
 import com.example.tasktrackerspring.application.port.out.LoadTaskPort;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TaskPersistenceAdapterTest {
 
@@ -40,5 +43,29 @@ class TaskPersistenceAdapterTest {
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test4.json");
         List<Task> tasks = loadTaskPort.findAll();
         assertEquals(2, tasks.size());
+    }
+
+    @Test
+    public void canInsert() {
+        InsertTaskPort sut = new TaskPersistenceAdapter("TestData/Test5.json");
+        Task task = new Task(
+                new TaskID(1),
+                new Description("description"),
+                Status.DONE,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        sut.insert(task);
+
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test5.json");
+        assertNotNull(loadTaskPort.find(new TaskID(1)));
+    }
+
+    @Test
+    public void emptyFileReturnsEmptyList() {
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test6.json");
+        List<Task> tasks = loadTaskPort.findAll();
+        assertEquals(0, tasks.size());
     }
 }

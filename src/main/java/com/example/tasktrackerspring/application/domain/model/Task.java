@@ -10,7 +10,7 @@ public record Task(
         TaskID id,
         Description description,
         Status status,
-        LocalDateTime parse,
-        LocalDateTime parsed
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }
