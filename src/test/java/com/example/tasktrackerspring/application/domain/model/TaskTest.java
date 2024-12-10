@@ -11,7 +11,7 @@ class TaskTest {
     @Test
     public void canCreate() {
         assertDoesNotThrow(() -> {
-                    Task task = new Task(
+            new Task(
                             new TaskID(1),
                             new Description("description"),
                             Status.TODO,
