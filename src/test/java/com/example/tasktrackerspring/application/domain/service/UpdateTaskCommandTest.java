@@ -20,21 +20,17 @@ class UpdateTaskCommandTest {
 
     @Test
     public void isRequiredTaskID() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new UpdateTaskCommand(
-                    null,
-                    new Description("description")
-            );
-        });
+        assertThrows(IllegalArgumentException.class, () -> new UpdateTaskCommand(
+                null,
+                new Description("description")
+        ));
     }
 
     @Test
     public void isRequiredDescription() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new UpdateTaskCommand(
-                    new TaskID(1),
-                    null
-            );
-        });
+        assertThrows(IllegalArgumentException.class, () -> new UpdateTaskCommand(
+                new TaskID(1),
+                null
+        ));
     }
 }

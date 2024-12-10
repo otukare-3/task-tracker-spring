@@ -16,12 +16,8 @@ class TaskIDTest {
 
     @Test
     public void valueIsRequired() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new TaskID(null);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new TaskID(0);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new TaskID(null));
+        assertThrows(IllegalArgumentException.class, () -> new TaskID(0));
     }
 
     @Test
