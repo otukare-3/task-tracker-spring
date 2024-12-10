@@ -1,5 +1,9 @@
 package com.example.tasktrackerspring.application.domain.service;
 
+import com.example.tasktrackerspring.application.domain.model.Description;
+import com.example.tasktrackerspring.application.domain.model.Status;
+import com.example.tasktrackerspring.application.domain.model.TaskID;
+
 public record AddTaskCommand(TaskID taskID, Description description, Status status) {
     public AddTaskCommand {
         if (taskID == null) {

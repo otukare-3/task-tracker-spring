@@ -1,5 +1,8 @@
 package com.example.tasktrackerspring.application.domain.service;
 
+import com.example.tasktrackerspring.application.domain.model.Description;
+import com.example.tasktrackerspring.application.domain.model.Status;
+import com.example.tasktrackerspring.application.domain.model.TaskID;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

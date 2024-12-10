@@ -1,4 +1,4 @@
-package com.example.tasktrackerspring.application.domain.service;
+package com.example.tasktrackerspring.application.domain.model;
 
 import java.util.Objects;
 

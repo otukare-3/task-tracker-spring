@@ -1,7 +1,7 @@
 package com.example.tasktrackerspring.adapter.out.persistence;
 
 import com.example.tasktrackerspring.application.domain.model.Task;
-import com.example.tasktrackerspring.application.domain.service.TaskID;
+import com.example.tasktrackerspring.application.domain.model.TaskID;
 import com.example.tasktrackerspring.application.port.out.InsertTaskPort;
 import com.example.tasktrackerspring.application.port.out.LoadTaskPort;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort {
     private final String destination;
@@ -50,10 +51,10 @@ public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort {
     @Override
     public void insert(Task task) {
         List<Task> tasks = findAll();
-        tasks.add(task);
+        List<Task> addedTasks = Stream.concat(tasks.stream(), Stream.of(task)).toList();
 
         TaskMapper taskMapper = new TaskMapper();
-        List<TaskJsonEntity> taskJsonEntities = taskMapper.mapToJsonEntityList(tasks);
+        List<TaskJsonEntity> taskJsonEntities = taskMapper.mapToJsonEntityList(addedTasks);
 
         ObjectMapper mapper = new ObjectMapper();
 

@@ -1,9 +1,9 @@
 package com.example.tasktrackerspring.adapter.out.persistence;
 
+import com.example.tasktrackerspring.application.domain.model.Description;
+import com.example.tasktrackerspring.application.domain.model.Status;
 import com.example.tasktrackerspring.application.domain.model.Task;
-import com.example.tasktrackerspring.application.domain.service.Description;
-import com.example.tasktrackerspring.application.domain.service.Status;
-import com.example.tasktrackerspring.application.domain.service.TaskID;
+import com.example.tasktrackerspring.application.domain.model.TaskID;
 
 import java.time.LocalDateTime;
 import java.util.List;
