@@ -26,4 +26,17 @@ public class DeleteTaskServiceTest {
         LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         assertEquals(0, loadTaskPort.findAll().size());
     }
+
+    @Test
+    public void canDeleteTask_multipleTasks() {
+        TestRepositoryHelper.CreateTask(1, "description", Status.TODO);
+        TestRepositoryHelper.CreateTask(2, "description", Status.TODO);
+        DeleteTaskPort deleteTaskPort = new TaskPersistenceAdapter("TestRepository.json");
+        DeleteTaskUseCase sut = new DeleteTaskService(deleteTaskPort);
+
+        sut.delete(new TaskID(1));
+
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
+        assertEquals(1, loadTaskPort.findAll().size());
+    }
 }
