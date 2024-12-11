@@ -5,6 +5,7 @@ import com.example.tasktrackerspring.application.domain.model.TaskID;
 import com.example.tasktrackerspring.application.port.out.DeleteTaskPort;
 import com.example.tasktrackerspring.application.port.out.InsertTaskPort;
 import com.example.tasktrackerspring.application.port.out.LoadTaskPort;
+import com.example.tasktrackerspring.application.port.out.UpdateTaskPort;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort, DeleteTaskPort {
+public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort, DeleteTaskPort, UpdateTaskPort {
     private final String destination;
 
     public TaskPersistenceAdapter(String destination) {
@@ -63,6 +64,12 @@ public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort, Del
         List<Task> removedTasks = tasks.stream().filter(task -> !task.id().equals(taskID)).toList();
 
         writeJson(removedTasks);
+    }
+
+    @Override
+    public void update(Task task) {
+        delete(task.id());
+        insert(task);
     }
 
     private void writeJson(List<Task> writeTaskList) {
