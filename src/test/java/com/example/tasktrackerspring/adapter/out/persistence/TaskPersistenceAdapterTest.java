@@ -39,22 +39,28 @@ class TaskPersistenceAdapterTest {
 
     @Test
     public void canFindMultipleData() {
-        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test4.json");
+        TestRepositoryHelper.CreateTask(1, "Test4-1 Description", Status.TODO);
+        TestRepositoryHelper.CreateTask(2, "Test4-2 Description", Status.TODO);
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         TaskID target = new TaskID(1);
+
         Optional<Task> task = loadTaskPort.find(target);
+
         assertEquals("Test4-1 Description", task.orElseThrow().description().getValue());
     }
 
     @Test
     public void canFindAll() {
-        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test4.json");
+        TestRepositoryHelper.CreateTask(1, "Test4-1 Description", Status.TODO);
+        TestRepositoryHelper.CreateTask(2, "Test4-2 Description", Status.TODO);
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         List<Task> tasks = loadTaskPort.findAll();
         assertEquals(2, tasks.size());
     }
 
     @Test
     public void canInsert() {
-        InsertTaskPort sut = new TaskPersistenceAdapter("TestData/Test5.json");
+        InsertTaskPort sut = new TaskPersistenceAdapter("TestRepository.json");
         Task task = new Task(
                 new TaskID(1),
                 new Description("description"),
@@ -65,13 +71,13 @@ class TaskPersistenceAdapterTest {
 
         sut.insert(task);
 
-        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test5.json");
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         assertNotNull(loadTaskPort.find(new TaskID(1)));
     }
 
     @Test
     public void emptyFileReturnsEmptyList() {
-        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestData/Test6.json");
+        LoadTaskPort loadTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         List<Task> tasks = loadTaskPort.findAll();
         assertEquals(0, tasks.size());
     }
