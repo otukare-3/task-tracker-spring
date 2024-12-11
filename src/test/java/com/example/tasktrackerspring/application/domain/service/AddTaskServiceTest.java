@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AddTaskServiceTest {
     @Test
     public void addTaskWithStateTodo() {
-        //TODO: JUnit Extension Model を試してみる
         InsertTaskPort insertTaskPort = new TaskPersistenceAdapter("TestRepository.json");
         AddTaskUseCase sut = new AddTaskService(insertTaskPort);
 
