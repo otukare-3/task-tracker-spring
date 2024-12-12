@@ -1,5 +1,6 @@
 package com.example.tasktrackerspring.adapter.out.persistence;
 
+import com.example.tasktrackerspring.application.domain.model.Status;
 import com.example.tasktrackerspring.application.domain.model.Task;
 import com.example.tasktrackerspring.application.domain.model.TaskID;
 import com.example.tasktrackerspring.application.port.out.DeleteTaskPort;
@@ -48,6 +49,13 @@ public class TaskPersistenceAdapter implements LoadTaskPort, InsertTaskPort, Del
             throw new RuntimeException(e);
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public List<Task> searchByStatus(Status status) {
+        List<Task> allTasks = findAll();
+
+        return allTasks.stream().filter(task -> task.status().equals(status)).toList();
     }
 
     @Override
